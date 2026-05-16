@@ -9,5 +9,5 @@ FROM nginxinc/nginx-unprivileged:alpine
 COPY --from=builder /app /usr/share/nginx/html
 # Copiamos el template de configuración del proxy
 COPY nginx.conf.template /etc/nginx/templates/default.conf.template
-EXPOSE 8080
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
