@@ -1,13 +1,12 @@
-# ========== ETAPA 1: Preparación ==========
-FROM alpine AS builder
-WORKDIR /app
-COPY . .
-RUN rm -f Dockerfile nginx.conf.template
+FROM nginx:alpine
 
-# ========== ETAPA 2: Producción ==========
-FROM nginxinc/nginx-unprivileged:alpine
-COPY --from=builder /app /usr/share/nginx/html
-# Copiamos el template de configuración del proxy
-COPY nginx.conf.template /etc/nginx/templates/default.conf.template
-EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+# Limpia contenido por defecto
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copia los archivos del frontend
+COPY index.html app.js /usr/share/nginx/html/
+
+# Copia la configuración custom de Nginx
+COPY default.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
