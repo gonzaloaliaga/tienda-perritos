@@ -1,3 +1,5 @@
+// Deploy trigger
+
 /**
  * Frontend simple para CRUD de productos de la tienda de perritos.
  */
